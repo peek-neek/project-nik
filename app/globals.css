@@ -7,6 +7,18 @@
 @theme inline {
     --font-heading: var(--font-sans);
     --font-sans: var(--font-sans);
+    --font-display: var(--font-display);
+    --font-serif: var(--font-serif);
+    --font-mono: var(--font-mono);
+    --color-brand: var(--brand);
+    --color-brand-deep: var(--brand-deep);
+    --color-on-brand: var(--on-brand);
+    --color-paper: var(--paper);
+    --color-ink: var(--ink);
+    --color-ink-soft: var(--ink-soft);
+    --color-line: var(--line);
+    --color-tint: var(--tint);
+    --color-nav: var(--nav);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -47,15 +59,67 @@
     --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* Portfolio accent swatches. `--brand` fills surfaces, `--brand-ink` is the brand as text,
+   `--on-brand` is text on a brand fill, and `--brand-inverse` is what the difference-blended
+   nav uses so it reads as `--brand-ink` over paper. */
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
+    --brand: #1f3dff;
+    --brand-ink: var(--brand);
+    --brand-deep: #1226b8;
+    --brand-inverse: #e0c200;
+    --on-brand: #ffffff;
+}
+
+:root[data-accent="red"] {
+    --brand: #e3191c;
+    --brand-deep: #a50f12;
+    --brand-inverse: #1ce6e3;
+}
+
+:root[data-accent="green"] {
+    --brand: #0f7f35;
+    --brand-deep: #0a5a25;
+    --brand-inverse: #f080ca;
+}
+
+/* Yellow is too light to read as text on white, so its text uses a deep golden shade
+   and anything on a yellow fill uses near-black. */
+:root[data-accent="yellow"] {
+    --brand: #f5c518;
+    --brand-ink: #8f6b00;
+    --brand-deep: #d9a900;
+    --brand-inverse: #7094ff;
+    --on-brand: #141414;
+}
+
+:root[data-accent="violet"] {
+    --brand: #6b1eff;
+    --brand-deep: #4a10c2;
+    --brand-inverse: #94e100;
+}
+
+:root[data-accent="black"] {
+    --brand: #0a0a0a;
+    --brand-deep: #2a2a2a;
+    --brand-inverse: #f5f5f5;
+}
+
+:root {
+    --paper: #ffffff;
+    --ink: var(--brand-ink);
+    --ink-soft: color-mix(in oklab, var(--ink) 70%, transparent);
+    --line: color-mix(in oklab, var(--ink) 24%, transparent);
+    --tint: color-mix(in oklab, var(--brand) 7%, var(--paper));
+    --nav: var(--brand-inverse);
+
+    --background: var(--paper);
+    --foreground: var(--ink);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
+    --primary: var(--brand);
+    --primary-foreground: var(--on-brand);
     --secondary: oklch(0.97 0 0);
     --secondary-foreground: oklch(0.205 0 0);
     --muted: oklch(0.97 0 0);
@@ -65,7 +129,7 @@
     --destructive: oklch(0.577 0.245 27.325);
     --border: oklch(0.922 0 0);
     --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
+    --ring: var(--brand);
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
@@ -83,14 +147,15 @@
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
+    --paper: #0b0b0e;
+    --ink: color-mix(in oklab, var(--brand) 16%, #ffffff);
+    --tint: color-mix(in oklab, var(--brand) 18%, var(--paper));
+    --nav: #f2f2f2;
+
     --card: oklch(0.205 0 0);
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.205 0 0);
     --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
     --secondary: oklch(0.269 0 0);
     --secondary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.269 0 0);
@@ -100,7 +165,6 @@
     --destructive: oklch(0.704 0.191 22.216);
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
@@ -116,6 +180,34 @@
     --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* Flips a block to brand-on-white text over a brand background (menu, footer). */
+.theme-inverse {
+    --paper: var(--brand);
+    --ink: var(--on-brand);
+    --ink-soft: color-mix(in oklab, var(--ink) 72%, transparent);
+    --line: color-mix(in oklab, var(--ink) 28%, transparent);
+    --tint: var(--brand-deep);
+    background-color: var(--paper);
+    color: var(--ink);
+}
+
+/* A soft wash of the brand colour with brand-coloured text (footer). */
+.theme-tint {
+    --paper: color-mix(in oklab, var(--brand) 12%, #ffffff);
+    --ink: var(--brand-ink);
+    --ink-soft: color-mix(in oklab, var(--ink) 70%, transparent);
+    --line: color-mix(in oklab, var(--ink) 24%, transparent);
+    --tint: color-mix(in oklab, var(--brand) 20%, #ffffff);
+    background-color: var(--paper);
+    color: var(--ink);
+}
+
+.dark .theme-tint {
+    --paper: color-mix(in oklab, var(--brand) 18%, #0b0b0e);
+    --ink: color-mix(in oklab, var(--brand) 16%, #ffffff);
+    --tint: color-mix(in oklab, var(--brand) 26%, #0b0b0e);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -126,4 +218,26 @@
   html {
     @apply font-sans;
     }
+  ::selection {
+    background-color: var(--brand);
+    color: var(--on-brand);
+  }
+}
+
+/* Lenis smooth scrolling (from lenis/dist/lenis.css, which the package doesn't export). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
