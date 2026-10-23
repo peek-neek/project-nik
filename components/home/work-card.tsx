@@ -3,6 +3,7 @@
 import React, { PointerEvent } from "react"
 import { motion, useMotionValue, useSpring, Variants } from "motion/react"
 
+import Icon from "@/components/home/icon"
 import { Label } from "@/components/home/primitives"
 import ProjectCover from "@/components/home/project-cover"
 import { easeOutExpo } from "@/lib/motion"
@@ -111,13 +112,13 @@ const WorkCard = ({ project, index }: { project: Project; index: number }) => {
                   visualDuration: 0.4,
                 }}
               >
-                ↗
+                <Icon name="arrowUpRight" className="size-7" />
               </motion.span>
             </motion.div>
 
             <div>
               <motion.p
-                className="font-display text-[clamp(5rem,10vw,9rem)] leading-[0.82]"
+                className="font-display text-[clamp(4rem,8vw,8rem)] leading-[0.82]"
                 variants={infoItem}
                 custom={1}
               >
@@ -127,16 +128,31 @@ const WorkCard = ({ project, index }: { project: Project; index: number }) => {
                 <Label className="mt-2">{project.metricLabel}</Label>
               </motion.div>
               <motion.p
-                className="mt-6 max-w-[36ch] text-lg leading-snug"
+                className="mt-5 max-w-[40ch] text-base leading-snug lg:text-lg"
                 variants={infoItem}
                 custom={3}
               >
                 {project.summary}
               </motion.p>
-              <motion.div
-                className="mt-6 flex items-center justify-between gap-4"
+              <motion.ul
+                className="mt-5 flex flex-wrap gap-1.5"
+                aria-label="Built with"
                 variants={infoItem}
                 custom={4}
+              >
+                {project.stack.map((tool) => (
+                  <li
+                    key={tool}
+                    className="rounded-full bg-paper/60 px-2.5 py-1 font-mono text-[0.625rem] tracking-[0.06em]"
+                  >
+                    {tool}
+                  </li>
+                ))}
+              </motion.ul>
+              <motion.div
+                className="mt-5 flex items-center justify-between gap-4"
+                variants={infoItem}
+                custom={5}
               >
                 <span className="rounded-full border border-line px-3 py-1 font-mono text-[0.6875rem] tracking-[0.1em] uppercase">
                   {project.category}

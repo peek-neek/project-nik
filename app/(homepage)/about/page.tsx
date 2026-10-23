@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 import { Stat, Statement } from "@/components/home/about"
-import Clients from "@/components/home/clients"
+import BuiltWith from "@/components/home/built-with"
 import Ledger from "@/components/home/ledger"
 import PageHeader from "@/components/home/page-header"
 import Portrait from "@/components/home/portrait"
@@ -70,15 +70,16 @@ export default function AboutPage() {
 
       <Services heading={about.servicesHeading} />
 
-      <Clients heading={about.clientsHeading} clients={about.clients} />
+      <BuiltWith heading={about.builtWithHeading} />
 
       <Ledger
-        label="(05) Recognition"
-        heading={about.awardsHeading}
-        rows={about.awards.map((award) => ({
-          primary: award.name,
-          secondary: award.title,
-          meta: award.year,
+        label="(05) FAQ"
+        heading={about.faqHeading}
+        icon="help"
+        rows={about.faqs.map((faq) => ({
+          primary: faq.topic,
+          secondary: `*${faq.question}* ${faq.answer}`,
+          meta: faq.short,
         }))}
       />
 

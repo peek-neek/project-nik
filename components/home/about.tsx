@@ -13,7 +13,9 @@ import {
 
 import Link from "next/link"
 
+import Icon from "@/components/home/icon"
 import { FadeIn, Label, parseRich } from "@/components/home/primitives"
+import type { IconName } from "@/lib/icons"
 import { easeOutExpo } from "@/lib/motion"
 import { site } from "@/lib/site"
 import { cn } from "@/lib/utils"
@@ -85,10 +87,12 @@ export const Stat = ({
   value,
   suffix,
   label,
+  icon,
 }: {
   value: number
   suffix: string
   label: string
+  icon: IconName
 }) => {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: "0px 0px -15% 0px" })
@@ -111,7 +115,10 @@ export const Stat = ({
         <motion.span>{rounded}</motion.span>
         {suffix}
       </p>
-      <Label className="mt-3">{label}</Label>
+      <Label className="mt-3 flex items-center gap-2">
+        <Icon name={icon} className="size-3.5" />
+        {label}
+      </Label>
     </div>
   )
 }
@@ -143,7 +150,7 @@ const About = () => {
             >
               More about me
               <span className="transition-transform duration-300 group-hover:translate-x-1">
-                →
+                <Icon name="arrowRight" className="size-4" />
               </span>
             </Link>
           </FadeIn>

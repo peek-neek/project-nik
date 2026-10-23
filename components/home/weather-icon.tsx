@@ -1,20 +1,10 @@
 "use client"
 
 import React from "react"
-import {
-  Cloud,
-  CloudDrizzle,
-  CloudFog,
-  CloudLightning,
-  CloudMoon,
-  CloudRain,
-  CloudSnow,
-  CloudSun,
-  Moon,
-  Sun,
-} from "lucide-react"
 import { motion, TargetAndTransition, Transition } from "motion/react"
 
+import Icon from "@/components/home/icon"
+import type { IconName } from "@/lib/icons"
 import type { WeatherKind } from "@/lib/weather"
 import { cn } from "@/lib/utils"
 
@@ -53,25 +43,24 @@ const motionFor = (
   }
 }
 
-const iconFor = (kind: WeatherKind, isDay: boolean) => {
-  const props = { className: "size-full", strokeWidth: 1.5 }
+const iconFor = (kind: WeatherKind, isDay: boolean): IconName => {
   switch (kind) {
     case "clear":
-      return isDay ? <Sun {...props} /> : <Moon {...props} />
+      return isDay ? "sun" : "moon"
     case "partly":
-      return isDay ? <CloudSun {...props} /> : <CloudMoon {...props} />
+      return isDay ? "sunCloud" : "moonCloud"
     case "cloudy":
-      return <Cloud {...props} />
+      return "cloud"
     case "fog":
-      return <CloudFog {...props} />
+      return "fog"
     case "drizzle":
-      return <CloudDrizzle {...props} />
+      return "drizzle"
     case "rain":
-      return <CloudRain {...props} />
+      return "rain"
     case "snow":
-      return <CloudSnow {...props} />
+      return "snow"
     case "storm":
-      return <CloudLightning {...props} />
+      return "storm"
   }
 }
 
@@ -93,7 +82,11 @@ const WeatherIcon = ({
       animate={animate}
       transition={transition}
     >
-      {iconFor(kind, isDay)}
+      <Icon
+        name={iconFor(kind, isDay)}
+        className="size-full"
+        strokeWidth={1.5}
+      />
     </motion.span>
   )
 }

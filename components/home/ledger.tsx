@@ -3,7 +3,9 @@
 import React from "react"
 import { motion, Variants } from "motion/react"
 
+import Icon from "@/components/home/icon"
 import { Label, RichText } from "@/components/home/primitives"
+import type { IconName } from "@/lib/icons"
 import { easeOutExpo } from "@/lib/motion"
 
 const fill: Variants = {
@@ -18,15 +20,18 @@ const nudge: Variants = {
 
 type Row = { primary: string; secondary: string; meta: string }
 
-// A numbered list (clients, awards) whose rows fill with the brand colour on hover.
+// A numbered list (FAQ) whose rows fill with the brand colour on hover.
 const Ledger = ({
   label,
   heading,
   rows,
+  icon,
 }: {
   label: string
   heading: string
   rows: Row[]
+  /** Optional icon shown before every row's name. */
+  icon?: IconName
 }) => (
   <section className="px-4 pb-24 md:px-6 md:pb-36 lg:px-8">
     <div className="mb-10 grid gap-6 md:mb-14 md:grid-cols-12">
@@ -61,16 +66,19 @@ const Ledger = ({
               {String(i + 1).padStart(2, "0")}
             </span>
             <motion.span
-              className="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.85] uppercase md:col-span-5"
+              className="flex items-center gap-[0.2em] font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.85] uppercase md:col-span-5"
               variants={nudge}
               transition={{ type: "spring", bounce: 0.2, visualDuration: 0.4 }}
             >
+              {icon && (
+                <Icon name={icon} className="size-[0.55em]" strokeWidth={1.5} />
+              )}
               {row.primary}
             </motion.span>
             <span className="col-start-2 text-lg leading-snug md:col-span-4 md:col-start-7">
               <RichText text={row.secondary} />
             </span>
-            <span className="row-start-1 justify-self-end font-mono text-xs tracking-[0.12em] md:col-span-2 md:col-start-11 md:row-start-auto md:pr-2">
+            <span className="row-start-1 justify-self-end font-mono text-xs tracking-[0.12em] md:col-span-2 md:col-start-11 md:row-start-auto md:pr-2 md:text-right">
               {row.meta}
             </span>
           </motion.div>

@@ -12,7 +12,7 @@ import {
   Variants,
 } from "motion/react"
 
-import CanadaFlag from "@/components/home/canada-flag"
+import Icon from "@/components/home/icon"
 import Clock from "@/components/home/clock"
 import { Label, RichText } from "@/components/home/primitives"
 import ProjectCover from "@/components/home/project-cover"
@@ -134,7 +134,9 @@ const Footer = () => {
           </div>
 
           <div className="md:col-span-3">
-            <Label className="mb-5">Projects</Label>
+            <Label className="mb-5 flex items-center gap-2">
+              <Icon name="projects" className="size-3.5" /> Projects
+            </Label>
             <ul
               className="space-y-1 text-xl"
               onPointerLeave={() => setPreview(null)}
@@ -158,7 +160,9 @@ const Footer = () => {
           </div>
 
           <div className="md:col-span-3">
-            <Label className="mb-5">Connect</Label>
+            <Label className="mb-5 flex items-center gap-2">
+              <Icon name="user" className="size-3.5" /> Connect
+            </Label>
             <ul className="space-y-1 text-xl">
               {site.socials.map((social) => (
                 <li key={social.label}>
@@ -168,9 +172,10 @@ const Footer = () => {
                     rel="noreferrer"
                     className="group inline-flex items-center gap-2"
                   >
+                    <Icon name={social.icon} className="size-5" />
                     {social.label}
                     <span className="inline-block transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                      ↗
+                      <Icon name="arrowUpRight" className="size-4" />
                     </span>
                   </a>
                 </li>
@@ -180,7 +185,9 @@ const Footer = () => {
         </div>
 
         <div className="relative">
-          <Label className="mb-4">Say hello</Label>
+          <Label className="mb-4 flex items-center gap-2">
+            <Icon name="mail" className="size-3.5" /> Say hello
+          </Label>
           <motion.a
             ref={emailRef}
             href={`mailto:${site.email}`}
@@ -222,7 +229,7 @@ const Footer = () => {
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </span>
           <span className="flex items-center gap-3">
-            <CanadaFlag className="h-[11px] w-[22px]" />
+            <Icon name="maple" className="size-3.5" />
             {site.location.code} <Clock />
           </span>
           <motion.button
@@ -232,11 +239,11 @@ const Footer = () => {
                 ? lenis.scrollTo(0, { duration: 1.6, easing: scrollEasing })
                 : window.scrollTo({ top: 0 })
             }
-            className="self-start uppercase sm:self-auto"
+            className="inline-flex items-center gap-2 self-start uppercase sm:self-auto"
             whileHover={{ y: -3 }}
             transition={{ type: "spring", bounce: 0.4, visualDuration: 0.3 }}
           >
-            Back to top ↑
+            Back to top <Icon name="arrowUp" className="size-3.5" />
           </motion.button>
         </div>
       </motion.div>

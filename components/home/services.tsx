@@ -3,6 +3,7 @@
 import React from "react"
 import { motion, Variants } from "motion/react"
 
+import Icon from "@/components/home/icon"
 import { Label, RichText } from "@/components/home/primitives"
 import { easeOutExpo } from "@/lib/motion"
 import { site } from "@/lib/site"
@@ -18,7 +19,7 @@ const nudge: Variants = {
 }
 
 const Services = ({
-  heading = "I take products from a first idea to a live business: *think it, design it, build it, ship it, keep it running.*",
+  heading = "I build apps and websites, and *everything that comes with them.*",
 }: {
   heading?: string
 }) => {
@@ -56,7 +57,7 @@ const Services = ({
                 0{i + 1}
               </span>
               <motion.h3
-                className="font-display text-[clamp(3rem,6vw,5.5rem)] leading-[0.85] uppercase md:col-span-6"
+                className="flex items-center gap-[0.2em] font-display text-[clamp(3rem,6vw,5.5rem)] leading-[0.85] uppercase md:col-span-6"
                 variants={nudge}
                 transition={{
                   type: "spring",
@@ -64,6 +65,11 @@ const Services = ({
                   visualDuration: 0.4,
                 }}
               >
+                <Icon
+                  name={service.icon}
+                  className="size-[0.55em]"
+                  strokeWidth={1.5}
+                />
                 {service.title}
               </motion.h3>
               <p className="col-start-2 max-w-[38ch] text-lg leading-snug md:col-span-4 md:col-start-8">

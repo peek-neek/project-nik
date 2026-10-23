@@ -1,4 +1,7 @@
 // All copy for the portfolio lives here. Replace the placeholders with your own.
+// `icon` fields name an icon from lib/icons.ts.
+
+import type { IconName } from "@/lib/icons"
 
 export type Motif = "orb" | "grid" | "arch" | "rings" | "stripes" | "bars"
 
@@ -13,7 +16,13 @@ export type Project = {
   href?: string
   image?: string
   motif: Motif
+  /** Tool names from `site.stack` this product is built with. */
+  stack: string[]
+  /** "saas" for my own products, "client" for work built for someone else. */
+  kind: ProjectKind
 }
+
+export type ProjectKind = "saas" | "client"
 
 export type ShapeType =
   "flower" | "blossom" | "burst" | "star" | "smiley" | "sparkle"
@@ -28,9 +37,15 @@ export const site = {
   name: "NEERAJ",
   wordmark: "NEERAJ",
   role: "I Design, Develop & Deploy",
-  intro: "Independent designer & developer based in",
+  // Shown with icons at the top of the hero.
+  roles: [
+    { label: "Design", icon: "design" },
+    { label: "Develop", icon: "develop" },
+    { label: "Deploy", icon: "deploy" },
+  ] satisfies { label: string; icon: IconName }[],
+  intro: "I build apps & websites, based in",
   location: {
-    city: "Your City",
+    city: "Toronto",
     code: "Toronto",
     timeZone: "America/Toronto",
     // Used for the live weather on the loading screen.
@@ -44,16 +59,24 @@ export const site = {
   },
   email: "NIKATWORK365@GMAIL.COM",
   socials: [
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/neerajneerajweb/" },
-    { label: "GitHub", href: "https://github.com/peek-neek" },
-    { label: "Instagram", href: "https://www.instagram.com/neerajbharrdwaj/" },
-    { label: "Dribbble", href: "https://dribbble.com/" },
-  ],
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/neerajneerajweb/",
+      icon: "linkedin",
+    },
+    { label: "GitHub", href: "https://github.com/peek-neek", icon: "github" },
+    {
+      label: "Instagram",
+      href: "https://www.instagram.com/neerajbharrdwaj/",
+      icon: "instagram",
+    },
+    { label: "Dribbble", href: "https://dribbble.com/", icon: "dribbble" },
+  ] satisfies { label: string; href: string; icon: IconName }[],
   nav: [
-    { label: "Projects", href: "/projects" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "#contact" },
-  ],
+    { label: "Projects", href: "/projects", icon: "projects" },
+    { label: "About", href: "/about", icon: "about" },
+    { label: "Contact", href: "#contact", icon: "mail" },
+  ] satisfies { label: string; href: string; icon: IconName }[],
   // Little flowers and stars scattered across the page. Change `seed` to reshuffle them.
   decorations: {
     seed: 7,
@@ -73,98 +96,183 @@ export const site = {
   },
   // Wrap words in *asterisks* to set them in the italic serif.
   statement:
-    "I design and build *digital products* and brand systems that feel calm, considered and quietly bold — from the first sketch to the *last line of code.*",
+    "I build *apps and websites* from start to finish. Design, development and deployment, *all in one place.*",
   bio: [
-    "I work with founders, studios and in-house teams who care about the details. My work sits where brand meets product: identities that hold up on screen, and interfaces with enough personality to be remembered.",
-    "I like small teams, honest feedback and shipping things that last. When I'm not pushing pixels I'm usually writing code, reading about type, or out with a camera.",
+    "Bring me an idea and I'll turn it into a real product. I plan it, design it, build it, put it online and keep it running.",
+    "I've built and launched my own products, CarrelAI and Kardably, so I know what it takes to ship.",
   ],
   stats: [
-    { value: 8, suffix: "+", label: "Years of practice" },
-    { value: 50, suffix: "+", label: "Projects shipped" },
-    { value: 14, suffix: "", label: "Countries worked with" },
-  ],
-  // The /about page. Clients and awards below are placeholders — swap in your own.
+    { value: 2, suffix: "", label: "SaaS products launched", icon: "deploy" },
+    { value: 1, suffix: "", label: "Person, idea to launch", icon: "user" },
+    {
+      value: 100,
+      suffix: "%",
+      label: "Designed, built & deployed by me",
+      icon: "check",
+    },
+  ] satisfies {
+    value: number
+    suffix: string
+    label: string
+    icon: IconName
+  }[],
+  // The /about page.
   about: {
-    headline: "Independent designer & developer, *Your City.*",
-    disciplines: "Brand · Product · Code · Since 2018",
+    headline: "I build apps & websites, *from idea to launch.*",
+    disciplines: "Design · Development · Deployment",
     intro:
-      "I'm Neeraj, an independent designer and developer working between brand, product and code. For eight years I've helped founders and studios *find their voice* and turn it into work people *remember.*",
+      "I'm Neeraj. I build apps and websites, and *everything that comes with them:* design, development and deployment.",
     // Drop a photo in /public and point to it, e.g. "/portrait.jpg".
     portrait: undefined as string | undefined,
     bioHeading: "One person, *start to finish.*",
     bio: [
-      "Before going independent I designed and built products for teams across agencies and start-ups. Today I take on a handful of projects a year, so each one gets my full attention.",
-      "You work with me directly, from the first sketch to the last line of code. No hand-offs, no account managers, *no lost details.*",
+      "You work with one person for the whole thing. I plan it, design it, build it and put it online. No hand-offs, *nothing lost along the way.*",
+      "I've launched my own products, CarrelAI and Kardably, so I know what it takes to ship something real and keep it running.",
     ],
-    servicesHeading: "Idea to launch and beyond, *one point of view.*",
-    clientsHeading: "Eight brands, *one standard.*",
-    clients: [
-      { name: "Halden", work: "Identity", year: "2026" },
-      { name: "Fieldnote", work: "Product", year: "2026" },
-      { name: "Kiln & Co", work: "Website", year: "2025" },
-      { name: "Orbit Pay", work: "Design system", year: "2025" },
-      { name: "Mono Radio", work: "Motion", year: "2024" },
-      { name: "Verde", work: "Identity", year: "2024" },
-      { name: "Atlas Studio", work: "Website", year: "2023" },
-      { name: "Northwind", work: "Product", year: "2022" },
-    ],
-    awardsHeading: "A few awards, *one obsession.*",
-    awards: [
+    servicesHeading: "Everything your product needs, *in one place.*",
+    builtWithHeading: "The tools behind *everything I ship.*",
+    faqHeading: "Questions, *answered.*",
+    // Each row: `topic` is the big name, then the question and answer, and `short` sits on the right.
+    faqs: [
       {
-        name: "Awwwards",
-        title: "Site of the Day, *twice*",
-        year: "2025 — 2026",
+        topic: "Timeline",
+        short: "2–12 weeks",
+        question: "How long does a project take?",
+        answer:
+          "A simple website usually takes 2 to 4 weeks. A full app usually takes 2 to 3 months. You'll get a clear timeline before we start.",
       },
-      { name: "CSS Design Awards", title: "Website of the Day", year: "2025" },
-      { name: "FWA", title: "FWA of the Day", year: "2024" },
-      { name: "Webby Awards", title: "Honoree, *web design*", year: "2023" },
+      {
+        topic: "Pricing",
+        short: "Fixed quote",
+        question: "How much does it cost?",
+        answer:
+          "It depends on what you need. Tell me about your project and I'll send you a simple, fixed quote. No surprises later.",
+      },
+      {
+        topic: "Kickoff",
+        short: "Just an idea",
+        question: "What do you need from me to start?",
+        answer:
+          "Just your idea and some time for feedback. If you already have a brand, content or designs, great. If not, I can help with those too.",
+      },
+      {
+        topic: "Scope",
+        short: "Your call",
+        question: "Can you just design, or just build?",
+        answer:
+          "Yes. I can take on one part, like the design or the development, or do the whole thing from idea to launch.",
+      },
+      {
+        topic: "Existing work",
+        short: "Yes",
+        question: "Can you work on an app or website I already have?",
+        answer:
+          "Yes. I can fix bugs, add new features, speed it up or redesign parts of it.",
+      },
+      {
+        topic: "Tech",
+        short: "Next.js & co.",
+        question: "What tech do you use?",
+        answer:
+          "Next.js, Prisma, tRPC, Zustand and shadcn/ui, hosted on Vercel, with Clerk for logins and Trigger.dev for background jobs. If your project needs something else, I'll use what fits.",
+      },
+      {
+        topic: "Support",
+        short: "Ongoing",
+        question: "What happens after launch?",
+        answer:
+          "I don't disappear. I can keep your product running with fixes, updates, new features and monitoring.",
+      },
+      {
+        topic: "Location",
+        short: "Toronto, remote",
+        question: "Where are you based?",
+        answer: "Toronto, Canada. I work with clients anywhere, remotely.",
+      },
     ],
   },
+  // Everything I build with. `role` shows on hover in the "Built with" grid; which products
+  // use each tool comes from each project's `stack` below.
+  stack: [
+    { name: "Next.js", role: "Framework", icon: "framework" },
+    { name: "Prisma", role: "Database", icon: "database" },
+    { name: "tRPC", role: "API", icon: "api" },
+    { name: "Zustand", role: "State", icon: "state" },
+    { name: "shadcn/ui", role: "Components", icon: "components" },
+    { name: "Trigger.dev", role: "Background jobs", icon: "jobs" },
+    { name: "Inngest", role: "Background jobs", icon: "jobs" },
+    { name: "Vercel", role: "Hosting", icon: "hosting" },
+    { name: "Clerk", role: "Auth", icon: "auth" },
+  ] satisfies { name: string; role: string; icon: IconName }[],
   // Ordered the way a product actually happens, from first idea to years of upkeep.
   services: [
     {
       title: "Idea & strategy",
-      description:
-        "Spotting a real problem, sizing it up and shaping a product people will actually pay for.",
+      icon: "idea",
+      description: "Figure out the problem and plan what to build.",
     },
     {
       title: "Brand identity",
-      description:
-        "Naming, logos, type and the systems that hold them together.",
+      icon: "brand",
+      description: "Name, logo, colours and fonts.",
     },
     {
       title: "Product design",
-      description:
-        "Research, flows and interfaces for web and mobile products.",
+      icon: "design",
+      description: "Screens and flows that are easy to use.",
     },
     {
       title: "Development",
+      icon: "develop",
       description:
-        "Full-stack builds, from database to interface: fast, accessible front-ends with React and Next.js.",
+        "Building the app with Next.js, Prisma, tRPC, Zustand and shadcn/ui.",
     },
     {
       title: "AI integration",
-      description:
-        "AI features that answer from real data, not memory: document parsing, retrieval, citations and multi-model fallbacks.",
+      icon: "ai",
+      description: "AI features that work with your own data.",
     },
     {
       title: "Motion",
-      description: "Interaction and motion design that gives products a pulse.",
+      icon: "motion",
+      description: "Small animations that make it feel alive.",
     },
     {
       title: "Deployment",
+      icon: "deploy",
       description:
-        "Hosting, domains, auth, payments and analytics wired up, so launch day is a non-event.",
+        "Putting it online: hosting, domains, logins, payments and background jobs with Trigger.dev or Inngest.",
     },
     {
       title: "Maintenance & growth",
-      description:
-        "Monitoring, fixes and steady iteration long after launch, guided by how people really use it.",
+      icon: "maintain",
+      description: "Fixing bugs, adding features and keeping it running.",
     },
-  ],
+  ] satisfies { title: string; icon: IconName; description: string }[],
+  // How projects are grouped on the home and Projects pages, in this order.
+  projectGroups: [
+    {
+      kind: "saas",
+      title: "My products",
+      description: "SaaS I've designed, built and run myself.",
+      icon: "deploy",
+    },
+    {
+      kind: "client",
+      title: "Client work",
+      description: "Websites and apps I've built for clients.",
+      icon: "projects",
+    },
+  ] satisfies {
+    kind: ProjectKind
+    title: string
+    description: string
+    icon: IconName
+  }[],
   projects: [
     {
       slug: "carrelai",
+      kind: "saas",
       title: "CarrelAI",
       category: "AI SaaS",
       year: "2026",
@@ -173,10 +281,21 @@ export const site = {
       summary:
         "A desk for your documents, not a chat window. PDFs, Word files and lecture decks open beside a canvas, notes and a planner, and every AI answer is read out of your own pages, with citations back to the exact one.",
       href: "https://carrelai.com",
+      stack: [
+        "Next.js",
+        "Prisma",
+        "tRPC",
+        "Zustand",
+        "shadcn/ui",
+        "Trigger.dev",
+        "Vercel",
+        "Clerk",
+      ],
       motif: "grid",
     },
     {
       slug: "kardably",
+      kind: "saas",
       title: "Kardably",
       category: "AI SaaS",
       year: "2026",
@@ -185,7 +304,31 @@ export const site = {
       summary:
         "Turns a resume into a shareable business card. AI pulls out what matters, you pick a theme and polish the details, then share it by link or QR, with analytics on who viewed it.",
       href: "https://kardably.com",
+      stack: [
+        "Next.js",
+        "Prisma",
+        "tRPC",
+        "Zustand",
+        "shadcn/ui",
+        "Trigger.dev",
+        "Vercel",
+        "Clerk",
+      ],
       motif: "orb",
+    },
+    {
+      slug: "saramoz-homes",
+      kind: "client",
+      title: "Saramoz Homes",
+      category: "Website",
+      year: "2026",
+      metric: "25+",
+      metricLabel: "GTA neighbourhoods featured",
+      summary:
+        "A personal real estate site for Sara Mozafari, a GTA agent. Featured listings, a simple five-step buying process, services, client stories and a market journal, all built to turn visitors into calls.",
+      href: "https://saramozafari.vercel.app",
+      motif: "arch",
+      stack: ["Next.js", "shadcn/ui", "Vercel"],
     },
   ] satisfies Project[] as Project[],
   testimonials: [

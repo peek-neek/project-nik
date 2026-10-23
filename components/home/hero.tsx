@@ -3,8 +3,10 @@
 import React, { useRef } from "react"
 import { motion, useScroll, useTransform, Variants } from "motion/react"
 
+import Icon from "@/components/home/icon"
 import { useIntro } from "@/components/home/intro-context"
 import { Label, Serif } from "@/components/home/primitives"
+import Roles from "@/components/home/roles"
 import Wordmark from "@/components/home/wordmark"
 import { easeOutExpo } from "@/lib/motion"
 import { site } from "@/lib/site"
@@ -42,7 +44,7 @@ const Hero = () => {
         variants={fade}
         custom={0.5}
       >
-        <Label>{site.role}</Label>
+        <Roles state={state} />
         <Label className="text-right">
           Portfolio ©{new Date().getFullYear()}
         </Label>
@@ -63,7 +65,11 @@ const Hero = () => {
           variants={fade}
           custom={0.6}
         >
-          {site.intro} <Serif>{site.location.city}</Serif>
+          {site.intro}{" "}
+          <span className="inline-flex items-baseline gap-[0.15em] whitespace-nowrap">
+            <Icon name="maple" className="size-[0.8em] self-center" />
+            <Serif>{site.location.city}</Serif>
+          </span>
         </motion.p>
 
         <motion.a
@@ -95,7 +101,10 @@ const Hero = () => {
           variants={fade}
           custom={0.7}
         >
-          {site.availability.label}
+          <span className="inline-flex items-center gap-[0.3em]">
+            <Icon name="calendar" className="size-[0.8em]" />
+            {site.availability.label}
+          </span>
           <br />
           <Serif>{site.availability.period}</Serif>
         </motion.p>

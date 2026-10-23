@@ -2,9 +2,9 @@
 
 import React, { useSyncExternalStore } from "react"
 import { AnimatePresence, motion } from "motion/react"
-import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
+import Icon from "@/components/home/icon"
 import { useIntro } from "@/components/home/intro-context"
 import { easeOutExpo } from "@/lib/motion"
 
@@ -98,11 +98,7 @@ const AccentSwitcher = () => {
             exit={{ y: -14, rotate: 90, opacity: 0 }}
             transition={{ duration: 0.3, ease: easeOutExpo }}
           >
-            {dark ? (
-              <Moon className="size-3.5" />
-            ) : (
-              <Sun className="size-3.5" />
-            )}
+            <Icon name={dark ? "moon" : "sun"} className="size-4" />
           </motion.span>
         </AnimatePresence>
       </button>

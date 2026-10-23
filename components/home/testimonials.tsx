@@ -3,6 +3,7 @@
 import React, { useState } from "react"
 import { AnimatePresence, motion, Variants } from "motion/react"
 
+import Icon from "@/components/home/icon"
 import { Label } from "@/components/home/primitives"
 import { easeOutExpo } from "@/lib/motion"
 import { site } from "@/lib/site"
@@ -83,10 +84,12 @@ const Testimonials = () => {
           </div>
 
           <div className="flex gap-3">
-            {[
-              { step: -1, label: "Previous testimonial", glyph: "←" },
-              { step: 1, label: "Next testimonial", glyph: "→" },
-            ].map((control) => (
+            {(
+              [
+                { step: -1, label: "Previous testimonial", icon: "arrowLeft" },
+                { step: 1, label: "Next testimonial", icon: "arrowRight" },
+              ] as const
+            ).map((control) => (
               <motion.button
                 key={control.step}
                 type="button"
@@ -100,7 +103,7 @@ const Testimonials = () => {
                   visualDuration: 0.25,
                 }}
               >
-                {control.glyph}
+                <Icon name={control.icon} className="size-5" />
               </motion.button>
             ))}
           </div>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 import PageHeader from "@/components/home/page-header"
-import { WorkGrid } from "@/components/home/work"
+import { ProjectGroups } from "@/components/home/work"
 import { site } from "@/lib/site"
 
 export const metadata: Metadata = {
@@ -21,14 +21,14 @@ export default function ProjectsPage() {
     <>
       <PageHeader
         title="Projects"
-        label={`(${count}) Products`}
-        headline="SaaS products I've designed, built and *shipped myself.*"
+        label={`(${count}) Projects`}
+        headline="My own SaaS products, and *work for clients.*"
         meta={first === last ? `${first}` : `${first} — ${last}`}
         titleClassName="text-[clamp(4.5rem,19vw,22rem)]"
       />
 
       <section className="px-4 pb-24 md:px-6 md:pb-36 lg:px-8">
-        <WorkGrid />
+        <ProjectGroups />
       </section>
     </>
   )
